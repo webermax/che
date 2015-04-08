@@ -10,9 +10,16 @@
  *******************************************************************************/
 package org.eclipse.che.ide.ext.java.server;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.inject.AbstractModule;
 
+import org.eclipse.che.api.auth.CookiesTokenExtractor;
+import org.eclipse.che.api.auth.TokenExtractor;
+import org.eclipse.che.api.auth.TokenManager;
+import org.eclipse.che.api.auth.UserProvider;
 import org.eclipse.che.api.core.notification.WSocketEventBusClient;
+import org.eclipse.che.commons.user.User;
+import org.eclipse.che.commons.user.UserImpl;
 import org.eclipse.che.everrest.CodenvyAsynchronousJobPool;
 import org.eclipse.che.inject.DynaModule;
 import org.eclipse.che.jdt.JavaNavigationService;
@@ -45,6 +52,7 @@ public class JavaCodeAssistantModule extends AbstractModule {
                 return new UserImpl("codenvy@codenvy.com", "codenvy", token, ImmutableSet.of("user"), false);
             }
         });
+
         bind(TokenManager.class).toInstance(new TokenManager() {
             @Override
             public String createToken(String userId) {
