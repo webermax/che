@@ -38,5 +38,33 @@ public class JavaCodeAssistantModule extends AbstractModule {
         bind(AsynchronousJobPool.class).to(CodenvyAsynchronousJobPool.class);
         bind(new PathKey<>(AsynchronousJobService.class, "/async/{ws-id}")).to(AsynchronousJobService.class);
         bind(WSocketEventBusClient.class).asEagerSingleton();
+        bind(TokenExtractor.class).to(CookiesTokenExtractor.class);
+        bind(UserProvider.class).toInstance(new UserProvider() {
+            @Override
+            public User getUser(String token) {
+                return new UserImpl("codenvy@codenvy.com", "codenvy", token, ImmutableSet.of("user"), false);
+            }
+        });
+        bind(TokenManager.class).toInstance(new TokenManager() {
+            @Override
+            public String createToken(String userId) {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public String getUserId(String token) {
+                return "codenvy";
+            }
+
+            @Override
+            public boolean isValid(String token) {
+                return true;
+            }
+
+            @Override
+            public String invalidateToken(String token) {
+                throw new UnsupportedOperationException();
+            }
+        });
     }
 }

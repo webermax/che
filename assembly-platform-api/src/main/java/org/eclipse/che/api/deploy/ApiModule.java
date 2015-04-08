@@ -22,6 +22,7 @@ import org.eclipse.che.api.builder.internal.SlaveBuilderService;
 import org.eclipse.che.api.analytics.AnalyticsModule;
 import org.eclipse.che.api.core.notification.WSocketEventBusServer;
 import org.eclipse.che.api.core.rest.ApiInfoService;
+import org.eclipse.che.api.local.LocalInfrastructureModule;
 import org.eclipse.che.api.runner.LastInUseRunnerSelectionStrategy;
 import org.eclipse.che.api.runner.RunnerAdminService;
 import org.eclipse.che.api.runner.RunnerSelectionStrategy;
@@ -114,5 +115,6 @@ public class ApiModule extends AbstractModule {
         install(new VirtualFileSystemFSModule());
         install(new FactoryModule());
         install(new DocsModule());
+        install(new LocalInfrastructureModule());
     }
 }
