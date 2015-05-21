@@ -457,7 +457,7 @@
                                     <fileset dir="${project.build.directory}/packager-conf/war/ws" />
                                 </war>
                                 <copy file="${project.build.directory}/packager-conf/war/assembly-platform-api-${project.version}.war" overwrite="true" tofile="${project.build.directory}/tomcat-ide/webapps/api.war" />
-                                <copy file="${project.build.directory}/packager-conf/war/che-plugin-datasource-server-war-sdk-${che.sdk.version}.war" overwrite="true" tofile="${project.build.directory}/tomcat-ide/webapps/datasource.war" />
+                                <copy file="${project.build.directory}/packager-conf/war/che-plugin-datasource-server-war-sdk-${che.plugins.version}.war" overwrite="true" tofile="${project.build.directory}/tomcat-ide/webapps/datasource.war" />
                                 <copy file="${project.build.directory}/packager-conf/war/assembly-java-codeassistant-${project.version}.war" overwrite="true" tofile="${project.build.directory}/tomcat-ide/webapps/java-ca.war" />
                                 <chmod dir="${project.build.directory}/tomcat-ide" includes="*.sh" perm="+x" />
                             </target>
