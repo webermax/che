@@ -13,7 +13,7 @@ package org.eclipse.che.api.deploy;
 
 import com.google.inject.servlet.ServletModule;
 
-import org.eclipse.che.api.auth.DefaultAuthorizationFilter;
+import org.eclipse.che.api.local.AutoLoginAuthorizationFilter;
 import org.eclipse.che.api.local.CheGuiceEverrestServlet;
 import org.eclipse.che.api.local.SingleEnvironmentFilter;
 import org.eclipse.che.inject.DynaModule;
@@ -36,8 +36,9 @@ public class ApiServletModule extends ServletModule {
         Map<String,String> params = new HashMap<>(2);
         params.put("ws-name", "default");
         params.put("ws-id", "1q2w3e");
+        params.put("account-id", "account1234567890");
         filter("/*").through(SingleEnvironmentFilter.class, params);
-        filter("/*").through(DefaultAuthorizationFilter.class);
+        filter("/*").through(AutoLoginAuthorizationFilter.class);
         serveRegex("^/api((?!(/(ws|eventbus)($|/.*)))/.*)").with(CheGuiceEverrestServlet.class);
     }
 }
