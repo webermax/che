@@ -41,7 +41,6 @@ import org.eclipse.che.api.user.server.UserService;
 import org.eclipse.che.api.vfs.server.VirtualFileSystemModule;
 import org.eclipse.che.api.vfs.server.VirtualFileSystemRegistry;
 import org.eclipse.che.api.workspace.server.WorkspaceService;
-import org.eclipse.che.docs.DocsModule;
 import org.eclipse.che.git.impl.nativegit.ssh.SshKeyProvider;
 import org.eclipse.che.git.impl.nativegit.ssh.SshKeyProviderImpl;
 import org.eclipse.che.everrest.CodenvyAsynchronousJobPool;
@@ -56,6 +55,7 @@ import org.eclipse.che.inject.DynaModule;
 import org.eclipse.che.jdt.JavaNavigationService;
 import org.eclipse.che.jdt.JavadocService;
 import org.eclipse.che.jdt.RestNameEnvironment;
+import org.eclipse.che.plugin.docker.runner.DockerRunnerModule;
 import org.eclipse.che.security.oauth.OAuthAuthenticationService;
 import org.eclipse.che.security.oauth.OAuthAuthenticatorProvider;
 import org.eclipse.che.security.oauth.OAuthAuthenticatorProviderImpl;
@@ -125,11 +125,11 @@ public class ApiModule extends AbstractModule {
         install(new AnalyticsModule());
         install(new BaseProjectModule());
         install(new BuilderModule());
+        install(new DockerRunnerModule());
         install(new RunnerModule());
         install(new VirtualFileSystemModule());
         install(new VirtualFileSystemFSModule());
         install(new FactoryModule());
-        install(new DocsModule());
         install(new LocalInfrastructureModule());
         install(new ScheduleModule());
     }

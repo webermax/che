@@ -16,7 +16,7 @@
     <parent>
         <artifactId>che-sdk-parent</artifactId>
         <groupId>org.eclipse.che.sdk</groupId>
-        <version>3.12.0-SNAPSHOT</version>
+        <version>3.12.3-SNAPSHOT</version>
     </parent>
     <artifactId>assembly-sdk</artifactId>
     <packaging>pom</packaging>
@@ -25,14 +25,44 @@
         <dependency>
             <groupId>com.codenvy.resources</groupId>
             <artifactId>che-tomcat8-slf4j-logback</artifactId>
-            <version>8</version>
+            <version>${version.resource-bundle}</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.che.examples</groupId>
+            <artifactId>client-custom-theme</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.che.examples</groupId>
+            <artifactId>client-helloworld</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.che.examples</groupId>
+            <artifactId>client-new-project-wizard</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.che.examples</groupId>
+            <artifactId>server-helloworld</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.che.examples</groupId>
+            <artifactId>server-new-project-type</artifactId>
+            <version>${project.version}</version>
             <type>zip</type>
         </dependency>
         <dependency>
             <groupId>org.eclipse.che.plugin</groupId>
-            <artifactId>che-plugin-datasource-server-war-sdk</artifactId>
+            <artifactId>che-plugin-docker-recipes</artifactId>
             <version>${che.plugins.version}</version>
-            <type>war</type>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.eclipse.che.plugin</groupId>
@@ -46,84 +76,6 @@
             <artifactId>assembly-sdk-war</artifactId>
             <version>${project.version}</version>
             <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.che.tutorials</groupId>
-            <artifactId>che-tutorial-action-api</artifactId>
-            <version>${che.tutorials.version}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.che.tutorials</groupId>
-            <artifactId>che-tutorial-analytics-event</artifactId>
-            <version>${che.tutorials.version}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.che.tutorials</groupId>
-            <artifactId>che-tutorial-editor-api</artifactId>
-            <version>${che.tutorials.version}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.che.tutorials</groupId>
-            <artifactId>che-tutorial-empty-ext</artifactId>
-            <version>${che.tutorials.version}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.che.tutorials</groupId>
-            <artifactId>che-tutorial-gin</artifactId>
-            <version>${che.tutorials.version}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.che.tutorials</groupId>
-            <artifactId>che-tutorial-gist-ext</artifactId>
-            <version>${che.tutorials.version}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.che.tutorials</groupId>
-            <artifactId>che-tutorial-helloworld-ext</artifactId>
-            <version>${che.tutorials.version}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.che.tutorials</groupId>
-            <artifactId>che-tutorial-icons-registry-api</artifactId>
-            <version>${che.tutorials.version}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.che.tutorials</groupId>
-            <artifactId>che-tutorial-notification-api</artifactId>
-            <version>${che.tutorials.version}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.che.tutorials</groupId>
-            <artifactId>che-tutorial-parts-api</artifactId>
-            <version>${che.tutorials.version}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.che.tutorials</groupId>
-            <artifactId>che-tutorial-server-side</artifactId>
-            <version>${che.tutorials.version}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.che.tutorials</groupId>
-            <artifactId>che-tutorial-theme-api</artifactId>
-            <version>${che.tutorials.version}</version>
-            <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.che.tutorials</groupId>
-            <artifactId>che-tutorial-wysiwyg-editor</artifactId>
-            <version>${che.tutorials.version}</version>
-            <type>zip</type>
         </dependency>
     </dependencies>
     <build>
@@ -161,7 +113,7 @@
                                 <artifactItem>
                                     <groupId>com.codenvy.resources</groupId>
                                     <artifactId>che-tomcat8-slf4j-logback</artifactId>
-                                    <version>8</version>
+                                    <version>${version.resource-bundle}</version>
                                     <type>zip</type>
                                     <overWrite>false</overWrite>
                                 </artifactItem>
@@ -169,7 +121,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>unpack-tomcat7</id>
+                        <id>unpack-tomcat-runner</id>
                         <phase>prepare-package</phase>
                         <goals>
                             <goal>unpack</goal>
@@ -179,7 +131,7 @@
                                 <artifactItem>
                                     <groupId>com.codenvy.resources</groupId>
                                     <artifactId>che-tomcat8-slf4j-logback</artifactId>
-                                    <version>8</version>
+                                    <version>${version.resource-bundle}</version>
                                     <type>zip</type>
                                     <overWrite>true</overWrite>
                                 </artifactItem>
