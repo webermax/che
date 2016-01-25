@@ -18,6 +18,7 @@ import org.eclipse.che.api.auth.AuthenticationService;
 import org.eclipse.che.api.core.notification.WSocketEventBusServer;
 import org.eclipse.che.api.core.rest.ApiInfoService;
 import org.eclipse.che.api.core.rest.CoreRestModule;
+import org.eclipse.che.api.deploy.security.PermissionInterceptorModule;
 import org.eclipse.che.api.local.LocalInfrastructureModule;
 import org.eclipse.che.api.machine.server.MachineModule;
 import org.eclipse.che.api.machine.server.recipe.PermissionsChecker;
@@ -106,6 +107,8 @@ public class ApiModule extends AbstractModule {
 
         bind(DockerMachineExtServerChecker.class);
         bind(DockerMachineTerminalChecker.class);
+
+        install(new PermissionInterceptorModule());
 
         // additional ports for development of extensions
         Multibinder<ServerConf> machineServers = Multibinder.newSetBinder(binder(),

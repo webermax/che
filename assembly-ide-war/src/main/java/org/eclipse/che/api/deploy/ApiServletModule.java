@@ -12,6 +12,8 @@ package org.eclipse.che.api.deploy;
 
 import com.google.inject.servlet.ServletModule;
 
+import org.apache.shiro.web.servlet.ShiroFilter;
+import org.eclipse.che.api.deploy.security.shiro.CheShiroWebModule;
 import org.eclipse.che.api.local.CheGuiceEverrestServlet;
 import org.eclipse.che.api.machine.server.proxy.MachineExtensionProxyServlet;
 import org.eclipse.che.env.local.server.SingleEnvironmentFilter;
@@ -34,5 +36,8 @@ public class ApiServletModule extends ServletModule {
         serve("/ext/*").with(MachineExtensionProxyServlet.class);
         serveRegex("^/api((?!(/(ws|eventbus)($|/.*)))/.*)").with(CheGuiceEverrestServlet.class);
         install(new BasicSwaggerConfigurationModule());
+
+        filter("/*").through(new ShiroFilter());
+        install(new CheShiroWebModule(getServletContext()));
     }
 }
